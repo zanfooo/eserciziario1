@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int main()
+{
+    float somma, sconto, prezzo;
+    int scelta;
+    do{
+    //chiedo all' utente di inserire l' importo
+    printf("Inserisci l'importo: ");
+    scanf("%f", &somma);
+    //verifico a quale sconto ha diritto l' utente
+    if(somma>=0 && somma<=500){
+        sconto = somma * 0.1;
+    } else if(somma>=501 && somma<=1000){
+        sconto = somma * 0.2;
+    } else if(somma>1000){
+        sconto = somma * 0.3;
+    } else {
+        printf("il prezzo inserito non è valido");
+    }
+    //rifrisco all' utente in output lo sconto e il prezzo netto da pagare
+    printf("Lo sconto per lei applicato è: %.2f", sconto);
+    printf("il prezzo scontato che dovrà pagare è: %.2f", sconto);
+    //permetto all' utente di poter rieseguire il programma
+    printf("Vuoi ripetere il programma inserendo un nuovo importo? /n se sì inserisci 0, altrimenti qualsiasi altro numero");
+    scanf("%d", &scelta);
+    }while(scelta==0);
+    return 0;
+}
