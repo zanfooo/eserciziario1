@@ -1,0 +1,38 @@
+-- ES1
+CREATE TABLE autori (
+   codice INT PRIMARY KEY,                   -- identificatore univoco autore
+   cf CHAR(16) UNIQUE NOT NULL,              -- codice fiscale (unico e obbligatorio)
+   cognome VARCHAR(50) NOT NULL,             -- cognome obbligatorio
+   nome VARCHAR(50) NOT NULL,                -- nome obbligatorio
+   citta VARCHAR(50)                         -- città facoltativa
+);
+
+-- ES2
+CREATE TABLE libri (
+   isbn CHAR(13) PRIMARY KEY,                -- codice ISBN (13 caratteri)
+   titolo VARCHAR(100) NOT NULL,             -- titolo obbligatorio
+   autore VARCHAR(60) NOT NULL,              -- autore obbligatorio
+   argomento VARCHAR(50),                    -- argomento facoltativo
+   editore VARCHAR(60),                      -- editore facoltativo
+   anno INT CHECK (anno >= 0),               -- anno non negativo
+   edizione INT CHECK (edizione > 0)         -- edizione positiva
+);
+
+-- ES3
+CREATE TABLE reparti (
+   ID_reparto INT PRIMARY KEY,               -- identificatore univoco reparto
+   nome_reparto VARCHAR(50) NOT NULL,        -- nome obbligatorio
+   cod_responsabile INT                      -- codice responsabile facoltativo
+);
+
+CREATE TABLE dipendenti (
+   ID_dipendente INT PRIMARY KEY,            -- identificatore univoco dipendente
+   cognome VARCHAR(50) NOT NULL,             -- cognome obbligatorio
+   nome VARCHAR(50) NOT NULL,                -- nome obbligatorio
+   data_nascita DATE,                        -- data di nascita
+   cap CHAR(5),                              -- CAP (5 caratteri)
+   citta VARCHAR(50),                        -- città di residenza
+   anzianita INT CHECK (anzianita >= 0),     -- anzianità non negativa
+   id_reparto INT,                           -- riferimento al reparto
+   FOREIGN KEY (id_reparto) REFERENCES reparti(ID_reparto)
+);
