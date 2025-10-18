@@ -1,0 +1,90 @@
+-- =========================
+-- ESERCIZIO 1 - autori
+-- =========================
+CREATE TABLE autori (
+    codice INT PRIMARY KEY,
+    cf VARCHAR(16),
+    cognome VARCHAR(40)
+);
+
+ALTER TABLE autori
+    ADD nome VARCHAR(40);
+
+ALTER TABLE autori
+    MODIFY cf VARCHAR(16) NOT NULL,
+    MODIFY nome VARCHAR(40) NOT NULL;
+
+ALTER TABLE autori
+    ADD UNIQUE INDEX idx_autori_cf (cf),
+    MODIFY cognome VARCHAR(40) NOT NULL;
+
+ALTER TABLE autori
+    ADD citta VARCHAR(40);
+
+
+-- =========================
+-- ESERCIZIO 2 - libri
+-- =========================
+CREATE TABLE libri (
+    isbn VARCHAR(13) PRIMARY KEY,
+    titolo VARCHAR(100),
+    autore INT,
+    argomento VARCHAR(40),
+    editore VARCHAR(60)
+);
+
+ALTER TABLE libri
+    MODIFY titolo VARCHAR(100) NOT NULL;
+
+ALTER TABLE libri
+    ADD CONSTRAINT fk_libri_autore FOREIGN KEY (autore) REFERENCES autori(codice) ON DELETE SET NULL ON UPDATE CASCADE;
+
+ALTER TABLE libri
+    ADD INDEX idx_libri_argomento (argomento);
+
+
+-- =========================
+-- ESERCIZIO 3 - docenti
+-- =========================
+CREATE TABLE docenti (
+    matricola INT PRIMARY KEY,
+    cf VARCHAR(16),
+    cognome VARCHAR(40),
+    nome VARCHAR(40),
+    materia VARCHAR(50)
+);
+
+ALTER TABLE docenti
+    MODIFY cf VARCHAR(16) NOT NULL,
+    MODIFY cognome VARCHAR(40) NOT NULL,
+    MODIFY nome VARCHAR(40) NOT NULL;
+
+ALTER TABLE docenti
+    ADD UNIQUE INDEX idx_docenti_cf (cf);
+
+ALTER TABLE docenti
+    ADD INDEX idx_docenti_materia (materia);
+
+
+-- =========================
+-- ESERCIZIO 4 - alunni
+-- =========================
+CREATE TABLE alunni (
+    matricola INT PRIMARY KEY,
+    cf VARCHAR(16),
+    cognome VARCHAR(40),
+    nome VARCHAR(40),
+    data_nascita DATE,
+    classe VARCHAR(10)
+);
+
+ALTER TABLE alunni
+    MODIFY cf VARCHAR(16) NOT NULL,
+    MODIFY cognome VARCHAR(40) NOT NULL,
+    MODIFY nome VARCHAR(40) NOT NULL;
+
+ALTER TABLE alunni
+    ADD UNIQUE INDEX idx_alunni_cf (cf);
+
+ALTER TABLE alunni
+    ADD INDEX idx_alunni_classe (classe);
